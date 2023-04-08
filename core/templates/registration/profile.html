@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Perfil do Sobrevivente</h1>
+
+<p>Usuário: {{ survivor.username }}</p>
+<p>Idade: {{ survivor.age }}</p>
+<p>Gênero: {{ survivor.gender }}</p>
+<p>Localização: {{ survivor.latitude }}, {{ survivor.longitude }}</p>
+<p>Infectado: {{ survivor.is_infected }}</p>
+
+<h2>Inventário</h2>
+{% if survivor.inventory.items.exists %}
+<ul>
+    {% for item in survivor.inventory.items.all %}
+    <li>{{ item.item }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>O inventário está vazio.</p>
+{% endif %}
+
+<h2>Outros Sobreviventes</h2>
+{% if survivors %}
+<table>
+    <thead>
+        <tr>
+            <th>Usuário</th>
+            <th>Idade</th>
+            <th>Gênero</th>
+            <th>Inventário</th>
+            <th>Infectado</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for other_survivor in survivors %}
+        <tr>
+            <td>{{ other_survivor.username }}</td>
+            <td>{{ other_survivor.age }}</td>
+            <td>{{ other_survivor.gender }}</td>
+            <td>
+                {% if other_survivor.inventory.items.exists %}
+                <ul>
+                    {% for item in other_survivor.inventory.items.all %}
+                    <li>{{ item.item }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>Nenhum item no inventário.</p>
+                {% endif %}
+            </td>
+            <td>{{ other_survivor.is_infected }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">Nenhum outro sobrevivente encontrado.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Nenhum outro sobrevivente encontrado.</p>
+{% endif %}
+{% endblock %}

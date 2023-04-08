@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Adicionar Survivor</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+    </div>
+    <div>
+        <label for="age">Idade:</label>
+        <input type="text" id="age" name="age">
+    </div>
+    <div>
+        <label for="gender">Gênero:</label>
+        <input type="text" id="gender" name="gender">
+    </div>
+    <div>
+        <label for="latitude">Latitude:</label>
+        <input type="text" id="latitude" name="latitude">
+    </div>
+    <div>
+        <label for="longitude">Longitude:</label>
+        <input type="text" id="longitude" name="longitude">
+    </div>
+    <div>
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password">
+    </div>
+    <div>
+        <label for="password_confirm">Confirme a senha:</label>
+        <input type="password" id="password_confirm" name="password_confirm">
+    </div>
+    <input type="hidden" id="inventory" name="inventory" value="{{ inventory.id }}">
+    <button type="submit">Adicionar Survivor</button>
+</form>
+{% endblock %}
